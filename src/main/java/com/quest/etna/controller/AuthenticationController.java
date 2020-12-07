@@ -41,14 +41,12 @@ public class AuthenticationController {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(mUser.toString());
-
         }catch (DuplicateKeyException e){
 //            e.printStackTrace();
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
                     .body("duplicata");
-        }
-        catch (Exception e){
+        }catch (Exception e){
 //            e.printStackTrace();
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -57,13 +55,18 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    ResponseEntity<String> authenticate(@RequestBody User mUser) throws Exception{
-        String token = "{ 'token' : }";
-        jwtCheckingService.setupUser(mUser.getUsername(), mUser.getPassword());
-        String mToken = jwtCheckingService.getValidToken();
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(token);
+    ResponseEntity<String> authenticate(@RequestBody User mUser){
+        try {
+            jwtCheckingService.setupUser(mUser.getUsername(), mUser.getPassword());
+            String mToken = jwtCheckingService.getValidToken();
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(mToken);
+        }catch (Exception ex){
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("Mauvais utilisateur / mot de passe");
+        }
     }
 
 }
