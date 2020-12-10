@@ -24,4 +24,14 @@ public class User {
     private Date creationDate;
     private Date updatedDate;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", role=" + role +
+                ", creationDate=" + creationDate +
+                ", updatedDate=" + updatedDate +
+                '}';
+    }
 }

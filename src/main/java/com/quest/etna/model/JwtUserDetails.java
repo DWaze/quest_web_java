@@ -14,7 +14,6 @@ public class JwtUserDetails implements UserDetails {
     private org.springframework.security.core.userdetails.User securityUser;
     private PasswordEncoder passwordEncoder;
 
-
     public JwtUserDetails(User user, PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
         this.user = user;
